@@ -6,8 +6,8 @@ import numpy as np
 class Standard_Dataset(Dataset):
     def __init__(self, X, Y, transformation=None):
         super().__init__()
-        self.X = X
-        self.y = Y
+        self.X = torch.tensor(X, dtype = torch.float32)
+        self.y = torch.tensor(Y, dtype = torch.float32)
         self.transformation = transformation
  
     def __len__(self):
@@ -15,5 +15,5 @@ class Standard_Dataset(Dataset):
 
     def __getitem__(self, idx):
         
-        return torch.from_numpy(np.array(self.X[idx])).float(), torch.from_numpy(np.array(self.y[idx])).float()
+        return self.X[idx], self.y[idx]
 

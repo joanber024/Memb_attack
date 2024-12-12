@@ -104,16 +104,14 @@ def __train_epoch(
             
             inputs, targets = data
             inputs = inputs.to(device)
-
+            targets = targets.to(device)
+            targets = targets.view(-1, 1)
 
             outputs = model(inputs)
-            outputs = outputs.squeeze(-1)
-            print(inputs, outputs, targets)
-        
-            loss = loss_func(targets.to(device), outputs)
+            
+            loss = loss_func(outputs, targets)
 
             if phase == 'train':
-                
                 loss.backward()
                 optimizer.step()
                 
